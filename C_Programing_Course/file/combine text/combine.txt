@@ -1,0 +1,2 @@
+this is frist line of first file.
+keyur is like jalal is second line of second file. 
