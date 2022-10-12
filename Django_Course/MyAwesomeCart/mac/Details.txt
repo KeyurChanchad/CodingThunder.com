@@ -1,0 +1,103 @@
+1. Install Django in your computer
+    pip install django
+
+2. To see the varsion of django
+    python -m django --version
+
+3. Open the directory in which you want to start the project.
+    H:\Django Course\ManageAwesomeCart>
+
+4. Show the command of django
+    H:\Django Course\ManageAwesomeCart> django-admin
+
+5. To start the project of django
+      django-admin startproject mac
+      --> This will create mac folder. Inside it create another mac and manage.py file
+      --> __init__.py file in a directory to denote that the project is a python package and can be imported into other files
+      -->setting.py contains database settings, static files location, template location, etc.
+      -->urls.py Url declaration and mapping are made under this file.
+      -->wsgi.py Web Server Gateway Interface communication between a web server and a web application.
+      --->manage.py  Command-line utility for performing administrative tasks.
+
+6. Start Django Server
+        python manage.py runserver
+
+7. Create views.py and urls.py if it is not there.
+
+8.Stat Django App
+    python manage.py startapp blog
+    python manage.py startapp shop
+
+9. templates and static folder must at outer directory whereas manage.py there.
+
+10. Accessing static file on the blog:
+          {% load static %}
+           <a href="{%static 'blog/myStaticBlog.txt' %}" >Click me </a>
+
+11.  To detect the changes in database and it schema
+        python manage.py makemigrations
+
+12.  To Apply the detected changes in database.
+       python manage.py migrate
+
+13. Register or Installed Your App
+        ---> setting.py
+        INSTALLED_APPS = [
+    'shop.apps.ShopConfig',
+    'blog.apps.Blogconfig',
+]
+
+14. To create SuperUser
+    python manage.py createsuperuser
+
+15. Register models
+    --> admin.py of there models
+    from .models import table_name
+    admin.site.register(table_name)
+
+16. To see the name of the product in admin panel database insted of object(1), object(2)
+    --->shop/models.py
+    def __str__(self):
+        return self.product_name
+
+17.  Upload the images in database
+    --> shop/models.py
+            image = models.ImageField(upload_to="shop/images")
+            ---> Means that image file is uploaded into shop--->images folder
+
+18.  To see the image in admin panel where admin insert
+     ---> mac/settings.py
+            MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+            MEDIA_URL = '/media/'
+
+     --->mac/urls.py
+            from django.con import setting
+            from django.con.url.static import static
+            urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('shop/', include('shop.urls')),
+            path('blog/', include('blog.urls')),
+        ] +  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+ 19. Type the below command to open the shell in the Windows Powershell :
+        --> python manage.py shell
+
+    By using the shell, we can easily test and make changes to a project's models. Type the below code to import Product from the database:
+       --> from shop.models import Product
+
+    After this, type the below code to see all the imported objects :
+       --> Product.objects.all()
+
+    Type the below code to add a new product to the Product model :
+       ---> myprod= Product(product_name="mouse", category="computer", subcategory="devices", prices=12, desc="chooha hai ye", pub_date=timezone.now())
+
+    code to save myprod :
+        --> myprod.save()
+
+
+ 20.
+
+
+
+
+

@@ -1,0 +1,104 @@
+{% extends 'shop/base.html' %}
+
+{% block title %} Tracker - My Awesome Cart{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="col my-4">
+        <h2 class="my-3">Entet your OrderId and Email to track your order:-</h2>
+        <form method="post" action="#" class="row g-3" id="trackerForm">
+            {% csrf_token %}
+            <div class="col-md-12">
+                <label for="orderId" class="form-label">Enter Order Id</label>
+                <input type="text" class="form-control" id="orderId" name="orderId" placeholder="OrderId">
+            </div>
+            <div class="col-md-12">
+                <label for="OrderEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+            </div>
+
+            <div class="col-12 my-4">
+                <button type="submit" class="btn btn-outline-primary">Track Order</button>
+            </div>
+        </form>
+    </div>
+    <div class="container my-3">
+        <h3 class="my-3"> Your Order Status:</h3>
+        <ol class="list-group list-group-numbered" id="items">
+            Enter your order id and email before click on Track Order to find details about your order!
+        </ol>
+
+        <h3 class="my-3"> Your Order Details:</h3>
+        <ol class="list-group list-group-numbered" id="Ditems">
+        </ol>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    $('#trackerForm').submit(function (event) {
+
+        $('#items').empty();
+
+        var formDate = {
+            'orderId': $('input[name=orderId]').val(),
+            'email': $('input[name=email]').val(),
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/shop/tracker',
+            data: formDate,
+            encode: true
+        })
+            .done(function (data) {
+                $('#Ditems').empty();
+                data = JSON.parse(data)
+                //console.log(data)
+                
+                if (data['status'] == 'success') {
+                    updates = data['updates'];
+                    for (i = 0; i < updates.length; i++) {
+                        let text = updates[i]['text'];
+                        let time = updates[i]['time'];
+                        date = new Date(time)
+                        mystr = `<li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto fw-bold">   ${text}   </div>
+                        <span class="badge bg-primary rounded-pill px-3 py-2"> ${date.toDateString()}  ${date.toLocaleTimeString()}</span>
+                        </li> `;
+                        $('#items').append(mystr)
+                    }
+
+                    // Fill in the order details
+                    cart = JSON.parse(data['itemsJson']);
+                    //console.log(cart)
+                    for (item in cart) {
+                        let name = cart[item][1];
+                        let qty = cart[item][0];
+                        mystr = `        <li class="list-group-item d-flex justify-content-between align-items-center">
+                        ${name}
+                            <span class="badge badge-primary badge-pill">${qty}</span>
+                        </li>`
+                        $('#Ditems').append(mystr);
+                    }
+                    
+                } else {
+                    mystr = `<li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto fw-bold"> Sorry, We are not able to fetch your order id and email. Make sure that your order id and email must be correct!</div>
+                    </li> `;
+                    $('#items').append(mystr);
+                    $('#Ditems').append(mystr);
+                }
+
+            });
+
+        event.preventDefault();
+    });
+
+</script>
+
+{% endblock %}

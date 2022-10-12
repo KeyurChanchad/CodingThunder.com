@@ -1,0 +1,83 @@
+{% extends 'blog/base.html' %}
+
+{% block title %} BlogPost- My Awesome Cart {% endblock %}
+
+{% block css%}
+<style>
+    .fb_iframe_widget {
+        display: block !important;
+        margin-bottom: 7px;
+    }
+</style>
+{% endblock%}
+
+{% block body %}
+<div class="container">
+    <div class="row g-5 mt-4">
+        <div class="col-md-8">
+            <h3 class="pb-4 mb-4 fst-italic border-bottom">
+                {{post.title}}
+            </h3>
+
+            <article class="blog-post">
+                <h2 class="blog-post-title">{{post.heading1}}</h2>
+                <p class="blog-post-meta"><span id="blogdate"></span> by <a href="#">Keyur</a></p>
+
+                <p>{{post.content1}}</p>
+
+                <h2>{{post.heading2}}</h2>
+                <p>{{post.content2}}</p>
+
+
+            </article>
+
+            <article class="blog-post">
+                <h2 class="blog-post-title">{{post.heading3}}</h2>
+                <p>{{post.content3}}</p>
+            </article>
+
+            <!-- Facebook Pugin Comment  -->
+            <div class="fb-comments" data-href="http://127.0.0.1:8000/blog/blogpost/{{post.blogpost_id}}" data-width="" data-numposts="5"></div>
+            <div class="fb-like" data-href="http://127.0.0.1:8000/blog/blogpost/{{post.blogpost_id}}" data-width=""
+                data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+
+            <nav class="blog-pagination mb-4" aria-label="Pagination">
+                <a class="btn btn-outline-secondary" href="">Previous Blog</a>
+                <a class="btn btn-outline-secondary" href=""}>Next Blog</a>
+            </nav>
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="position-sticky" style="top: 2rem;">
+                <div class="p-4 mb-3 bg-light rounded">
+                    <h4 class="fst-italic">About</h4>
+                    <p class="mb-0">Customize this section to tell your visitors a little bit about your publication,
+                        writers, content, or something else entirely. Totally up to you.</p>
+                </div>
+
+
+                <div class="p-4">
+                    <h4 class="fst-italic">Contact on Us:-</h4>
+                    <ol class="list-unstyled">
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Github</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Facebook</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js%}
+<script>
+    date = new Date("{{post.pub_date}}");
+    document.getElementById("blogdate").innerText = date.toDateString();
+
+</script>
+{% endblock%}
+

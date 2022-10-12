@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog page{% endblock title %}
+
+{% block blogActive %}active{% endblock blogActive %}
+
+{% block body %}
+
+
+<div class="container my-3">
+
+  <div class="row mb-2">
+  {% for post in allposts %}
+
+
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">Article by {{post.author}} ({{post.views}} Views)</strong>
+          <h3 class="mb-0">{{post.title}}</h3>
+          <div class="mb-1 text-muted">{{post.timeStamp}}</div>
+          <p class="card-text mb-auto"><div class="previews">{{post.content|safe|truncatechars:150}}</div></p>
+          <a href="/blog/{{post.slug}}" role="button" class="btn btn-primary btn-sm">Continue reading</a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <img src="/media/{{post.image}}" class="bd-placeholder-img" width="200" height="250"
+            xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+            preserveAspectRatio="xMidYMid slice" focusable="false">
+        </div>
+      </div>
+    </div>
+   
+    {% if forloop.counter|divisibleby:2 and forloop.counter > 0 and not forloop.last %}
+      </div>
+      <div class="row mb-2">
+    {% endif%}
+    {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock body %}
+
+{% block js %}
+<script>
+  let previews = document.getElementsByClassName('previews');
+  Array.from(previews).forEach((element)=>{
+      element.innerHTML = element.innerText;
+  })
+</script>
+{% endblock js %}

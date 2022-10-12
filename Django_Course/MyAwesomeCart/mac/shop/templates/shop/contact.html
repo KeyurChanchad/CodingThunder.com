@@ -1,0 +1,48 @@
+{% extends 'shop/base.html' %}
+
+{% block title %} Contact - My Awesome Cart {% endblock %}
+
+{% block body %}
+
+<div class="container my-3">
+  <h1>Contact Us</h1>
+  <form action="/shop/contact" method="post">
+    {% csrf_token %}
+    <div class="col-md-9">
+      <label for="fname" class="form-label">First name</label>
+      <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter your First Name" required>
+    </div>
+    <div class="col-md-9">
+      <label for="lname" class="form-label">Last name</label>
+      <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter your Last Name" required>
+    </div>
+    <div class="col-md-9">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email Address" required>
+    </div>
+    <div class="col-md-9">
+      <label for="phone" class="form-label">Phone</label>
+      <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter Phone Number" required>
+    </div>
+    <div class="col-mb-9 mt-2">
+      <label for="desc" class="form-label">How may we help you?</label>
+      <textarea class="form-control" id="desc" name="desc" placeholder="Enter Your Description" style="height:120px;"
+        required></textarea>
+    </div>
+    <div class="col-10 my-5">
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+   {% if post %}
+      alert("{{name}} your contact has been save successfully.")
+   {%endif%}
+</script>
+
+{% endblock%}
