@@ -1,0 +1,242 @@
+Git and GitHub
+Download Git 
+Git provide git bash terminal and git command line tool
+
+First set username and email for your git by below command
+---> git config --global user.name "KeyurChanchad"
+---> git config --global user.email "chanchadkeyur2001@gmail.com"
+To see username and email
+---> git config user.name
+---> git config user.email
+
+---> git config --list
+
+Set linus editor
+---> git config --global core.editor vim
+---> git config --global core.editor emac's
+
+To know status of the git repository
+---> git status
+First time it show no git repository then do next command
+
+Initialized your working directory as empty Git repository
+---> git init
+this will create .git named folder that contain your repository content
+
+Now check Git status
+
+To add file from Working directory to Staging area for commit
+---> git add filename
+
+If you want to add all files then type below command --a means All files
+---> git add --a
+
+To commit or finallize your files which are standing in Staging area
+---> git commit
+this will open vim edior press Insert then write #Your-commit then press Esc then :wq for quit
+
+If you don't do this type of headache
+---> git commit -m "Your-Commit-Message"
+
+To get all commit Message, time and Author
+---> git log
+
+
+Delete git repository
+---> rm -rf .git
+
+CLONING A REMOTE GIT REPOSITORY
+
+For clone github repository
+---> git clone https://github.com/KeyurChanchad/demo_java.git
+that will make a clone of demo_java with same named
+
+---> git clone https://github.com/KeyurChanchad/demo_java.git  DemoJava
+that will make a clone of demo_java with DemoJava named
+
+FILE STATUS LIFE CYCLE
+When you start git first time with "git init" command then your repository Initialized as git repository all the files and folders are not tracked means untracked. 
+You started tracked by "git add" command these files and folders status is unmodified .
+If you modify and type "git add" command then it goes to staged area.
+
+GIT IGNORE
+If you want to ignore files and folders then create .gitignore file by
+---> touch .gitignore
+Inside this put files and folders name that you want to ignore
+
+If you want to ignore all .log files then write in .gitignore file "*.log"
+
+git by default ignore directory file which is empty
+If you want to ignore all 'dir' named directory then write in .gitignore file "dir/"
+
+GIT DIFF
+Show difference between Staging area and Working area
+you have files in staging area for commit and now you modify this file and then check git status it show your files in staging area and modifed files. Now run this command
+---> git diff
+
+Add present working directory in git repository.
+---> git add . 
+
+GIT DIFF STAGE
+Show difference between Last Commit and Staging area
+---> git diff --staged
+
+SKIPPING THE STAGING AREA
+You modifed files and want to commit so you need to type "git add" command then type "git commit" command.
+Now this is headache If you directly push files from modifed to commit means skipping staging area.
+---> git commit -a -m "directly commit and skipping staging area"
+Remember onething, above command commit only tracked files not untracked or newly created.
+
+
+MOVING(DELETING) AND RENAME FIELS
+If you directy move or rename files then you manually add files in staging area to commit area.
+
+If you moving(deleting) by below command then directly add in staging area
+---> git rm first.txt
+
+If you want to rename filename by below command then directly add in staging area
+---> git mv first.txt first_rename.txt
+
+If you want to ignore 'myexcel.pub' tracked file. Add in .gitignore file. Now you changed or modifing your file this not ignore check by "git status" command.
+Because of those files are tracked till yet. Now you untracked files by below command.
+---> git rm --cached myexcel.pub
+
+
+GIT LOG
+You can get history by 'up and down arrow key' and 'q' for quit.
+
+This command show all commits with commit hash(This is folder hash when you modify something hash will changed for security match it.), Author name and email, Date and commit. 
+---> git log
+
+It will show last commit with all the datails.
+---> git log -p
+
+It will show last n number of commits with all the details.
+---> git log -p -3
+
+It will show all commits with number of files changed, number of  insertions(+), number of  deletion(-).
+---> git log --stat
+
+It will show all commits with Author and Commiter
+commit <hash>
+Author: <author>
+Date:   <author-date>
+<title-line>
+<full-commit-message>
+---> git log --pretty=full
+
+It will show all commits with Author
+commit <hash>
+Author: <author>
+<title-line>
+---> git log --pretty=short
+
+It will show all commits with hash in oneline <hash> <title-line>
+---> git log --pretty=oneline
+
+It will show all commits of  2 days
+Instead of days you can get weeks, months, years also.
+---> git log --pretty=2.days
+
+If you want to modifing commit message 
+---> git commit --amend
+
+GIT UNSTAGE AND UNMODIFY 
+If you want to restore or unstaged files from staging area to modifed.
+---> git restore --staged first_rename.txt
+
+If you want to compare modifed files with last commit by checkout command. Mistekly modifed then get back of last commit file.
+---> git checkout -- first_rename.txt
+
+This will restore all last commits files
+---> git checkout -f 
+
+GIT REMOTE 
+It will show remote branches
+---> git remote
+
+It will show fetch and push url of remote branch
+---> git remote -v
+
+Create your github account then new repository named "Git Demo"
+---> git remote add origin git@github.com:KeyurChanchad/Git-Demo.git
+
+Now push all commited files and folders from master repository to remote repository origin that is 'git@github.com:KeyurChanchad/Git-Demo.git'.
+---> git push -u origin master
+
+Now it getting errors due to NO PERMMISION is there.
+Google : How to generate SSH AND GGP key for github
+1. ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+2. eval "$(ssh-agent -s)"
+3.  ssh-add ~/.ssh/id_ed25519
+4. tail ssh-add ~/.ssh/id_rsc
+
+
+ALIAS
+alias command is for write long command in short
+---> git config --global alias.s status
+Next time only type 'git s' it is same as 'git status'
+
+---> git config --global alias.c commit
+Next time only type 'git c' it is same as 'git commit'
+
+---> git config --global alias.unstage 'restore --staged --'
+Next time only type 'git unstage' it is same as 'git restore --staged first_rename.txt'. Here -- means filename
+
+---> git config --global alias.last 'log -p -1'
+Next time only type 'git last' it is same as 'git log -p -1'
+
+
+BRANCH
+In git by default master branch is there.
+
+To see all branches with current branch *
+---> git branch
+
+If you want to create other branch named 'develop' 
+---> git checkout -b develop
+
+If you go back to master branch. (other branch)
+---> git checkout master
+
+Remember onething, these branches are seperate from each other. First time master branch files and folders are coping in develop branch. Then modifing in develop branch does not effect in master branch. When you return to master it is as it when you left. 
+
+.gitignore files and folders are not changable.
+
+It show all branches with <Hash> and last commit (master)
+---> git branch -v
+
+MERGING BRANCH
+merge bugfix branch to master reccomended type this command in master branch.
+---> git merge bugfix (master)
+
+CHECKING MERGED OR NOT MERGED BRANCH 
+show already merge branches (master)
+---> git branch --merge
+
+show not merge branches (master)
+---> git branch --no-merge
+
+
+DELETING BRANCH 
+Gives error if develop branch is not merged. (master)
+---> git branch -d develop
+
+No error gives and branch develop deleted. (master)
+---> git branch -D develop
+
+REMOTE 
+Add origin remote (master)
+---> git remote add origin https://github.com/KeyurChanchad/Git-Demo.git
+
+Push master branch to remote origin (master)
+---> git push -u origin master
+
+Push design branch to remote origin (design)
+---> git push origin design 
+
+Delete remote branch desing (master)
+---> git push -d origin design
+
+
+
