@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Andaman and Nicobar Islands</td>
+                <td>47</td>
+                <td>133</td>
+                <td>0</td>
+                </tr>
+                <tr>
+                
+                <td>2</td>
+                <td>Andhra Pradesh</td>
+                <td>18159</td>
+                <td>19393</td>
+                <td>492</td>
+                </tr>
+                
+                
+                <tr>
+                <td>3</td>
+                <td>Arunachal Pradesh</td>
+                <td>387</td>
+                <td>153</td>
+                <td>3</td>
+                </tr>
+                
+                <tr>
+                <td>4</td>
+                <td>Assam</td>
+                <td>6818</td>
+                <td>12888</td>
+                <td>48</td>
+                </tr>
+                
+                <tr>
+                <td>5</td>
+                <td>Bihar</td>
+                <td>7549</td>
+                <td>14018</td>
+                <td>197</td>
+                </tr>
+                
+                <tr>
+                <td>6</td>
+                <td>Chandigarh</td>
+                <td>164</td>
+                <td>476</td>
+                <td>11</td>
+                </tr>
+                
+                <tr>
+                <td>7</td>
+                <td>Chhattisgarh</td>
+                <td>1260</td>
+                <td>3451</td>
+                <td>21</td>
+                </tr>
+                <tr>
+                <td>8</td>
+                <td>Dadra and Nagar Haveli and Daman and Diu</td>
+                <td>179</td>
+                <td>371</td>
+                <td>2</td>
+                </tr>
+                
+                <tr>
+                <td>9</td>
+                <td>Delhi</td>
+                <td>17407</td>
+                <td>97693</td>
+                <td>3545</td>
+                </tr>
+                
+                <tr>
+                <td>10</td>
+                <td>Goa</td>
+                <td>1272</td>
+                <td>1817</td>
+                <td>19</td>
+                </tr>
+                
+                <tr>
+                <td>11</td>
+                <td>Gujarat</td>
+                <td>11289</td>
+                <td>32103</td>
+                <td>2089</td>
+                </tr>
+                
+                <tr>
+                <td>12</td>
+                <td>Haryana</td>
+                <td>5495</td>
+                <td>18185</td>
+                <td>322</td>
+                </tr>
+                
+                <tr>
+                <td>13</td>
+                <td>Himachal Pradesh</td>
+                <td>382</td>
+                <td>984</td>
+                <td>11</td>
+                </tr>
+                
+                <tr>
+                <td>14</td>
+                <td>Jammu and Kashmir</td>
+                <td>5488</td>
+                <td>6446</td>
+                <td>222</td>
+                </tr>
+                
+                <tr>
+                <td>15</td>
+                <td>Jharkhand</td>
+                <td>2069</td>
+                <td>2513</td>
+                <td>42</td>
+                </tr>
+                </tbody>
+    </table>
+</body>
+</html>

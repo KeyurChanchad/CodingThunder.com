@@ -1,0 +1,3 @@
+Static file is for public it open publicly as download file.
+A protected or personal file never put in static it available for all.
+if you share file with client, user, public then those file put in the static folder.
