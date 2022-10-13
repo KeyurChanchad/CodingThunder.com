@@ -1,0 +1,380 @@
+SQL:
+DDL (Data Defination Language) - create, rename, truncate, drop
+DML (Data Manipulation Language) - insert, update, delete
+DQL (Data Query Language) - select
+DCL (Data Control Language) - grant, revoke
+TCL (Transaction control Language)- Commit, Rollback, sava point
+
+When we are install any database after installation every database provide
+ following facilites to store the data:
+1. CUI - by terminal command
+2. GUI - by simple clicks
+3. API - by program
+
+commit; ------> For commit
+rollback;-----> For get back the query
+
+show databases;  -> show all databases
+
+show engines; --> show the database engines 
+
+use database_name; -> To use database
+
+show tables; -> show tables for selected database
+
+mysqladmin -u root password newpassword	  
+	-> Set a root password if there is on root password
+
+mysqladmin -u root -p oldpassword newpassword 	-> update a root password 
+
+select * from table_name; -> show the entire data of table
+
+desc table_name;	  -> show the table structure
+
+select * from table_name where condition; -> show the data which follows this condition
+
+selete column1, column2,... from table_name; ->select particular columns.
+
+selete column1, column2,... from table_name where condition; 
+					->select data in paricular column which follows condition. 
+
+insert into table_name (column1, column2,...) values (value1, value2,...);
+							 -> insert data for paricular or all column
+
+insert into table_name values (value1, value2, ....); -> insert data for all column
+
+insert into table_name values (&column1_name, '&column2_name',..); 
+-> insert data in loop where first round complete then press '/' keyword for other loop iteration.
+->'&column2_name' in this  ' ' is for varchar data type.
+
+update table_name set column1 = value1, column2 = values2,....  where condition;
+							-> set data where condition is become true
+
+update table_name set column = value;  ->It set the value in all the rows of column.
+
+
+delete from table_name where condition; ->delete the records in table notice where clause.
+
+delete from table_name; -> delete the entire table;
+
+drop table table_name;  -> delete the entire table and we lose the structure completely;
+
+truncate table table_name; -> we delete the data inside the table but not table;										
+ 
+****Alter table is used to add, delete or modify, rename column in table.****
+
+alter table table_name add  column_name datatype(size); -> Add column in table
+alter table table_name add  (column_name datatype(size) ,not null);
+
+ALTER TABLE table_name DROP COLUMN column_name;  -> delete the column.
+
+alter table table_name MODIFY column_name datatype;  ------> to change there datatype,
+
+alter table table_name MODIFY column_name datatype(size);
+							 ->modity the column or change the data type.
+
+alter table table_name rename column old_name to new_name;
+					-> to change the column name
+
+alter table table_name rename to new_name; -> to change the table name
+
+alter table table_name add constraint constraint_name check ( condition );
+							-> add constraint
+alter table student add constraint primary key(column_name);
+
+alter table table_name drop constraint constraint_name  -> drop the constraint
+
+rename old_name to new_name;  -> change the name of table.
+
+LIkE     % - 0 or more number of character
+	 _ - 1 character
+
+select * from student where name LIKE '____';  		->select name of 4 character.
+
+select * from student where name like 'a___';		-> start with a and of 4 character.
+
+select * from student where name LIKE 'a%';		-> start with a.
+
+select * from student where name LIKE 'a%y';		-> start with a and ends with y.
+
+AND
+OR 
+NOT
+
+find student whose name strats with a and have marks more than 50
+select * from student where name like 'a%' AND marks > 50;
+
+find student who marks between 80 t0 100
+select * from student where marks>=80 and marks<=100;
+select * from student where marks between 80 and 100;
+
+find student who scored marks between 60 to 80 or whose name ends with k
+select * from student where (marks >= 60 and marks <=80) or name like '%k';
+select * from student where marks between 60 and 80 or name like '%k'; 
+
+find student whose name doesnot start with k
+select * from student where name NOT like 'k%';
+
+find student who got marks 25, 98, 65, 96, 32
+select * from student where marks=25 or	marks=98 or marks=65 or	marks=96 or marks=32;
+
+IN
+select * from student where marks IN (25, 98, 65, 96, 32);
+select * from student where city IN ('surat', 'baroda' , 'amreli');
+
+
+****Aggregate Functions****
+min(), max(), sum(), count(), avg()
+select min(marks) from student;
+select min(name) from student;
+
+select max(marks) from student;
+select max(name) from student;
+
+select sum(marks) from student;
+select sum(name) from student;  ---> not allow
+
+select avg(marks) from student;
+
+select count(marks) from student;
+select count(name) from student;
+select count(*) from student;    ---> if you want to count records count(*)
+
+******Mathematical Operation*********
+abs, power, round, trunk, sqrt, floor, ceil
+
+select abs(price) from product;
+
+****DUAL CLASS******
+select sysdate from dual;
+
+select abs( -13) from dual;   ----> 13   ---->convert into only +
+
+select power(4, 2) from dual;
+
+select round(121.3612) from dual;   -----> 121
+select round(154.7852) from dual;   -----> 155
+
+select round(121.36169,4) from dual;   ----->121.3617
+select round(154.7852 , 2) from dual; -----> 154.79
+
+select round(12.931, 0) from dual;   ------> 13
+select round(12.31, 0) from dual;    ------> 12
+
+select trunkcate(12.235, 2) from dual; ------> 12.23
+select trunkcate(12.931, 0) from dual; -------> 12
+
+select sqrt(25) from dual;  -----> 5
+
+select floor(12.52) from dual;  ----->12
+select floor(12.22) from dual;  ----->12
+
+select ceil(12.23) from dual;   ------>13
+select ceil(12.52) from dual;  ----->13
+
+********String Function******
+ Lower, Upper, length
+
+select upper('keyur chanchad') from dual;
+select upper(name) from student;
+select * from student where  upper(name) like 'A%';
+
+select lower('KEYUR CHANCHAD') from dual;	
+
+select initcap('KEYUR CHANCHAD') from dual;
+select initcap('som lalit') from dual;			
+
+select length('som lalit') from dual;  ------> 9
+
+
+********DATE FORMATE********
+dd      ------> 2 digits of date
+ddth------> 2 digits with th EX.1st, 2nd, 3rd, 4th
+ddsp-----> date speling
+mm  	------> 2 digits of month
+yy	------> 2 digits of year
+yyyy 	------> full year
+mon	------> 3 character of month
+month	------> full month
+day	------> full day name
+
+select dely_date - order_date from sales;  -----> show day
+select sysdate - dely_date from sales;     -----> show day
+
+select * from sales where to_char(order_date, 'dd-mon-yy') like '26-jan-20';
+select * from sales where  to_char(order_date, 'mon') like 'jan';
+select * from sales where to_char(order_date, 'dd') like '09';
+
+select to_date('01-01-2020' , 'dd-mm-yyyy') from dual;
+select sysdate - to_date('01-01-2020' , 'dd-mm-yyyy') from dual;
+
+select to_date('2 february 2021' , 'dd month yy') from dual;
+select sysdate + 3 from dual; ---> posible
+select sysdate * 3 from dual;  ----> Not Posible
+
+select sysdate  + 60 from dual;
+select add_months(sysdate, 2) from dual;
+
+select sysdate - to_date('15-mar-1995', 'dd-mon-yyyy') from dual;
+select (sysdate - to_date('15-mar-1995', 'dd-mon-yyyy')) / 365 from dual;
+select trunc( (sysdate - to_date('15-mar-1995', 'dd-mon-yyyy')) / 365, 0) from dual;
+select floor( (sysdate - to_date('15-mar-1995', 'dd-mon-yyyy')) / 365, 0) from dual;
+
+select abs( months_between(sysdate , to_date('1-feb-95', 'dd-mon-yy') ) / 12 ) from dual;
+select months_between(sysdate , dely_date) from sales;
+
+select last_day(sysdate) from dual;
+select last_day(order_date) from sales;
+
+select next_day(sysdate, 'monday') from dual;
+
+Grouping   -----> Placing at end of queary.
+order by column_name desc;
+group by column_name having   ---> having for condition
+
+select * from student order by marks asc; ->It show data by ascending order of marsk  00 to 100 in +
+select  * from student order by marks ; --->By defualt it ascending
+select  * from student order by marks, name; 
+	 --->It show marks in ascending order where marks are same they ascending by name
+
+select  * from student order by marks asc, name desc;
+			----> show marks asc and name desc
+select  * from student order by marks ,name desc;
+			-----> show marks asc and name desc
+
+select name, sum(marks) from result; ----> It Show Error Because of groping is not allow here.
+
+select sum(marks) from result;
+select sum(marks) from result group by (roll_no);
+select roll_no, sum(marks) from result group by (roll_no);
+select roll_no, sum(marks) from result group by roll_no order by roll_no ;
+select roll_no, sum(marks) from result group by roll_no order by sum(marks) desc;
+
+
+select * from movie where movie_name like 'v%'; -----> name stars with v
+
+select * from movie where movie_name like '%f';-----> name ends with f
+
+select * from movie where movie_name like '___';-----> name has 3 character 
+
+select * from show where price between 200 and 600; ------> price between 200 and 400 Recamended
+select * from show where price >=200 and price <=600; ------> price between 200 and 400 
+
+select * from theater where theater_id IN (1001, 1002, 1004, 1005);
+					------> id is 1001, 1002, 1004, 1005 Recamended
+select * from theater where theater_id = 1001  or theater_id = 1004  or theater_id = 1002 or theater_id = 1005;
+					------> id is 1001, 1002, 1004, 1005
+
+select * from show where price != 250;  -------> price is not 250 if it numerical
+select * from show where price not like 250;   -------> price is not 250 
+
+select upper(movie_name) from movie; ------> convet into upper case
+
+select movie_name from movie where to_char(movie_dor,'mm') like 06  or to_char(movie_dor,'mon') like 'nov';
+			------> movie is relese on month jun or november.
+select movie_name from movie where to_char(movie_dor,'mm') IN ('07', '11');
+			------> movie is relese on month jun or november.   Recamended
+select movie_name from movie where to_char(movie_dor,'mon') IN ('jun', 'nov');
+
+select floor( (sysdate -  movie_dor )/ 365) from movie;   ------> show days in decimal
+select trunc ( (sysdate -  movie_dor )/ 365,0 )from movie; -----> show days
+ select to_char (sysdate, 'ddth month yyyy' ) from dual;
+select to_char (sysdate, 'ddsp day month yyyy' ) from dual;
+
+select movie_name from movie where to_char( movie_dor, 'mon') like 'aug';  ------> dor is aug that name
+select movie_name from movie where to_char(movie_dor, 'dd mm yy')  like '06 11 02';
+				--------> dor 06 11 02 that name
+
+select movie_name from movie where  movie_dor = to_date('12 jun 18', 'dd mon yy');
+				--------> dor 06 11 02 that name recamended
+
+alter table theater add city varchar2(10); ------> modify structure of table
+alter table theater drop primary key;
+alter table theater drop city ;
+alter table theater add primary key (theater_id);
+
+
+JOIN CONDITION
+1. Natural or Equvy join
+select student.name , result.marks  from student, result where 
+		student.roll_no = result.roll_no ;
+
+select student.roll_no , subject.sub_name, result.marks  from student, subject,
+ 	result where student.roll_no = result.roll_no AND subject.sub_id = result.sub_id;
+
+select st.name, s.sub_name, re.marks from student st, subject s, result re where 
+		st.roll_no = re.roll_no AND s.sub_id = re.sub_id order by(re.marks) ;
+
+select st.name, s.sub_name, re.marks from student st, subject s, result re where 
+		st.roll_no = re.roll_no AND s.sub_id = re.sub_id order by re.marks desc;
+
+select st.name , max(re.marks)  from student st, result re where 
+		st.roll_no = re.roll_no group by st.name ;  ----> group by st.name and select st.name must same
+select st.roll_no , max(re.marks)  from student st, result re where 
+		st.roll_no = re.roll_no group by st.roll_no;
+
+select roll_no, max(marks) from result group by roll_no;
+
+2.Subquery
+ select * from client_master where city = 
+		(select city from salesman_master where  SALESMAN_NO like 's03');
+
+##display the marks of student c##
+select s.roll_no, r.marks from result r, student s where
+	 s.roll_no=r.roll_no AND s.name like 'keyur';  ---->By JOIN
+
+select * from result where roll_no = 
+	(select roll_no from student where name like 'keyur');  ----> By Sub
+
+##Display rollno, subno, marks for english subject##
+ select * from result, subject where sub_no = 
+		(select sub_no from subject where sub_name = 'english');
+ 
+ select r.roll_no, r.sub_no, r.marks from result r, subject s where
+		 s.sub_no = r.sub_no AND sub_name like 'english'; 
+
+##Display name of the student who is getting 99 marks##
+   select name from student where roll_no = 
+		(select roll_no from result where marks  = 99);
+
+  select st.name from student st, result r where 
+		st.roll_no = r.roll_no AND r.marks = 99;
+
+##Find out sub_name in which student getting 99 marks##
+select s.sub_name from subject s, result r where r.sub_no = s.sub_no AND r.marks = 99;
+
+select sub_name from subject where sub_no =(select sub_no from result where marks = 99);
+
+select * from sales_order_details s1 where qty_ord > 
+	(select avg(qty_ord) from sales_order_details s2 where s2.produno = s1.produno); 
+
+select * from client_master where rownum = 1 order by cname;
+
+find the diparment wise total emp;
+ select department_id , count(*) from Department group by department_id;
+
+dep max. min avg sal
+ select department_id, min(sal), max(sal), avg(sal) from employee group by department_id;
+
+job wise max. min avg sal
+select job_id, min(sal), max(sal), avg(sal) from employee group by job_id;
+
+total no emp join in each mon
+select to_char(doj, 'mon'), count(*) from employee group by to_char(doj, 'mon');
+
+ total emp in join each year
+select to_char(doj, 'yyyy'), count(*) from employee group by to_char(doj, 'yyyy');
+
+find out dep atleast 2 emp;
+ select department_id  , count(*) from employee group by department_id having count(*) >= 2;
+
+find out dep in which emp working
+select name from Department where department_id in (select department_id from employee);
+
+find out job which are assign to emp
+select description from Job where job_id in (select job_id from employee);
+
+
+
+
+

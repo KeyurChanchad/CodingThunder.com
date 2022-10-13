@@ -1,0 +1,215 @@
+CREATE TABLE student
+(
+	roll_no NUMBER(3) PRIMARY KEY,
+	name VARCHAR(30) NOT NULL,
+	contact NUMBER(10) ,
+	email_id VARCHAR(30) UNIQUE,
+	marks NUMBER(3) CHECK (marks >=0 AND marks <=100)
+);
+
+create table subject
+(
+	sub_id NUMBER(3) PRIMARY KEY,
+	sub_name VARCHAR2(15) NOT NULL
+);
+
+CREATE TABLE result
+(
+	roll_no number(3) not null,
+	sub_id number(3) not null,
+ 	marks number(3) not null
+);
+-----------------------------------------------------------------------------------
+
+CREATE TABLE client_master
+(
+	client_no VARCHAR2(6) PRIMARY KEY,
+	name VARCHAR2(20) NOT NULL,
+	address1 VARCHAR2(30) ,
+	address2 VARCHAR2(30) ,
+	city VARCHAR2(15) ,
+	pincode NUMBER(8),
+	state VARCHAR2(15),
+	bal_due NUMBER(10,2),
+	check (client_no LIKE 'C%')
+);
+
+
+create table product_master
+(
+	product_no varchar2(6) PRIMARY KEY check(product_no LIKE 'p%'),
+	description varchar2(15) NOT NULL,
+	profit_percent NUMBER(4,2) NOT NULL,
+	unit_measure varchar(10) NOT NULL,
+	qyt_on_hand NUMBER(8) NOT NULL,
+	recored_lvl NUMBER(8) NOT NULL,
+	sell_price NUMBER(8,2) NOT NULL check (sell_price >= 0),
+	cost_price NUMBER(8,2) NOT NULL check (cost_price >= 0)
+);
+
+create table salesman_master
+(
+	salesman_no varchar2(6) PRIMARY KEY check(salesman_no LIKE 's%'),
+	salesman_name varchar2(20) NOT NULL,
+	address1 VARCHAR2(30) NOT NULL,
+	address2 VARCHAR2(30) ,
+	city VARCHAR2(20) ,
+	pincode varchar(8),
+	state VARCHAR2(20),
+	sal_amt NUMBER(8,2) NOT NULL check (sal_amt > 0),
+	tgt_to_get NUMBER(6,2) NOT NULL check (tgt_to_get > 0),
+	ytd_sales NUMBER(6,2) NOT NULL ,
+	remarks varchar2(60)
+);
+
+	
+create table sales_order
+(
+	order_no varchar2(6) PRIMARY KEY check (order_no LIKE 'o%'),
+	order_date date,
+	client_no varchar2(6) REFERENCES client_master(client_no),
+	dely_addr varchar2(25) ,
+	salesman_no varchar2(6) REFERENCES salesman_master(salesman_no),
+	dely_type char(1) default 'f',
+	billed_yn char(1),
+	dely_date date ,
+	order_status varchar2(10)    ,
+	constraint chk_type check(dely_type in('p' ,'f')),
+	check(dely_date > order_date),
+	constraint chk_ord_sts check (order_status IN('in process', 'fulfilled', 'backorder', 'cancelled'))
+);
+
+
+create table sales_order_details
+(
+	order_no varchar2(6),
+	product_no varchar2(6),
+	qty_ordered NUMBER(8),
+	qty_disp NUMBER(8),
+	product_rate NUMBER(10, 2),
+	 FOREIGN KEY (order_no) REFERENCES sales_order(order_no),
+	FOREIGN KEY (product_no) REFERENCES product_master(product_no)
+);
+	
+create table sales
+(
+	 sal_id number(2) primary key,
+	 order_date date,
+	 dely_date date,
+	 constraint chk_date check (order_date < dely_date)
+);
+
+create table sales_order2
+(
+	order_no varchar2(6),
+	dely_type char(1) default 'f',
+	constraint ck_type check ( dely_type in ('p' ,'f'))
+);
+
+ insert into sales_order2 (order_no) values ('o6');----->this work 
+
+
+------------------------------------------------------------------------------
+create table acter
+(
+	act_id NUMBER(3),
+	act_name varchar2(15),
+	act_dob DATE,
+	 primary key (act_id)
+);
+
+create table movie
+(
+	movie_id NUMBER(3),
+	movie_name varchar2(15),
+	movie_dor DATE,
+	 primary key (movie_id)
+);
+
+create table movie_act
+(
+	act_id number,
+	movie_id number,
+	foreign key (act_id)  references acter(act_id),
+	foreign key (movie_id)  references movie(movie_id)
+);
+
+create table theater
+(
+	theater_id int primary key,
+	theater_name varchar(20)
+); 
+
+
+create table show
+(
+	show_id int ,
+	theater_id int references theater(theater_id),
+	show_time varchar2(9),  -----------> check datatype time error
+	moive_id number  references movie(movie_id),
+	price float,
+	primary key (show_id)
+);
+
+
+create table Customer
+(
+	CNUM number(4),
+	CNAME varchar2(10),
+	CITY varchar2(10),
+	RATING number(3),
+	SNUM number(4)
+);
+
+create table Orders
+(
+	ONUM number(4),
+	AMOUNT float,
+	ODATE date,
+	CNUM number(4),
+	SNUM number(4)
+);
+
+create table Salespeople
+(
+	SNUM number(4),
+	SNAME varchar2(10),
+	CITY varchar2(10),
+	COMM float
+);
+
+create table Location 
+(
+	location_id int primary key,
+	location varchar(20)
+);
+
+create table Department
+(
+	department_id int  primary key,
+	name varchar(20),
+	location_id int references Location(location_id)
+);
+
+create table Job
+( 	
+	job_id int primary key,
+	description varchar(20)
+);
+
+create table employee
+(
+	emp_id int,
+	fname varchar(10),
+	lname varchar(10),
+	doj date, 
+	sal int,
+	comm int,
+	job_id int references Job(job_id),
+	department_id int references Department(department_id),
+	manager_id int
+);
+	
+
+
+

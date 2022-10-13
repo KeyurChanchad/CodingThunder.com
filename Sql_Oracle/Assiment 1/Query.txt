@@ -1,0 +1,141 @@
+insert into customer values(&cnum, '&cname', '&city', &rating, &snum);
+
+insert into orders values(&onum, &amount, '&odate', &cnum, &snum);
+
+insert into salespeople values(&snum, '&name', '&city', &comm);
+
+1. select * from salespeople;
+
+2. select snum from orders group by snum having count(*) >= 1;
+    select distinct snum from orders;
+
+3. select snum, comm from salespeople where city like 'London';
+
+4. select cname from customer where rating=100;
+
+5. select onum , amount, odate from orders;
+
+6. select * from customer where city like 'San Jose' and rating > 200;
+
+7. select * from customer where city like 'San jose' or rating > 200;
+
+8.  select * from orders where amount > 1000;
+
+9. select sname, city from salespeople where city ='London' and comm > 0.10;
+
+10. select cname from customer where rating <= 100 or city = 'Rome';
+	 select * from customer where rating > 100 and city not like 'Rome';
+
+11. select * from salespeople where city in('Barcelona', 'London');
+
+
+12.  select sname from salespeople where comm between 0.10 and .12; included
+	select sname from salespeople where comm >.10 and comm <.12; excluded
+
+13.   select * from customer where city = null ;
+	select * from customer where city = ' ' ;
+
+14.   select * from orders where odate in ('3-oct-16', '4-oct-16');
+
+15.  select cname from customer where snum in ( select snum from salespeople where sname in ('Peel', 'Motika'));
+
+16. select cname from customer where cname like 'G%' or cname like 'A%';
+
+17. select * from orders where amount != 0 or amount not like ' ' or amount is not null;
+
+18. select count(distinct snum) from orders;
+
+19. select odate, snum, max(amount) from orders group by odate, snum order by odate,snum;
+
+20.  select snum, max(amount) from orders where amount > 5000  group by snum;
+
+21.  select to_char(odate, 'day') from orders  where amount = (select max(amount) from orders);
+
+22.  select count(*) from orders where odate = to_date('03-oct-16', 'dd-mon-yy');
+     select count(*) from orders where odate = to_date('03-oct-16', 'ddth-mon-yy');
+     select count(*) from orders where odate = '03-oct-16';
+
+23.  select count(distinct city) from customer;
+
+24.  select cnum , min(amount) from orders group by cnum;
+     select c.cname, o.cnum, min(o.amount) from orders o, customer c where c.cnum = o.cnum group by o.cnum, c.cname ;
+
+25.  select min(cname) from customer where cname like 'G%';
+
+26.   select to_char(odate,'dd/mm/yy') from orders;
+     select 'for' || to_char(odate, 'dd/mm/yy') || 'there are' || count(*) || 'orders' from orders group by odate;
+
+27.  select onum, snum, amount, amount*0.12 from orders order by snum;
+
+28. select 'For the city (' || city ||'), the height rating is : (' || max(rating) || ')' from customer group by city;
+
+29.  select odate, count(*) from orders group by odate order by count(*);
+
+30. select c.cname,  s.sname from customer c, salespeople s where c.city = s.city;
+
+31. select c.cname,  s.sname from customer c, salespeople s where c.snum = s.snum;
+
+32. select o.onum,  c.cname from customer c, orders o where c.cnum = o.cnum;
+
+33. select o.onum, c.cname, s.sname from orders o, customer c, salespeople s where c.cnum = o.cnum AND s.snum = o.snum order by o.onum;
+
+34.  select cname from customer where snum IN (select snum from salespeople where comm > 0.12);
+
+35. select  s.sname, o.amount * s.comm from customer c, salespeople s, orders o where c.rating > 100  AND c.snum = s.snum AND s.snum = o.snum AND c.cnum = o.cnum ;
+
+36.select a.cname , b.cname , a.rating  from customer a, customer b where a.rating = b.rating AND a.cnum != b.cnum order by rating;
+
+37.  select a.cname, b.cname,a.rating  from customer a, customer b where a.rating = b.rating AND a.cnum != b.cnum AND a.cnum < b.cnum;
+
+38.  select cname, sname from salespeople , customer where sname in 
+		(select sname from salespeople where rownum <=3) order by cname;
+
+39. select cname from customer where city = (select city from salespeople where sname like 'Serres');
+
+40. 
+43. select cname, city from customer where rating = 
+	( select rating from customer where cname = 'Hoffman') AND cname != 'Hoffman';
+
+44.select * from orders where snum = (select snum from salespeople where sname = 'Motika');
+
+45.select * from orders where snum = (select snum from customer where cname = 'Hoffman');
+
+46.select * from orders where amount > 
+		(select avg(amount) from orders where to_char(odate, 'ddth mon') like '04th oct') ;
+
+47.select avg(comm) from salespeople  where city = 'London';
+
+48.select * from orders where snum IN (select snum from salespeople  where city = 'London');
+
+49. select comm from salespeople s, customer c  where s.snum = c.snum AND c.city='London';
+
+50.
+
+
+51.select avg(rating) from customer group by city having city = 'San Jose';
+
+52.select * from orders where cnum = (select cnum from customer where cname = 'Clemens');
+
+53.select  cname, rating from customer where cnum in 
+	(select cnum from orders where amount > (select avg(amount) from orders) );
+
+54.select snum, sum(amount) from orders group by snum having sum(amount) > (select max(amount) from orders);
+
+55.select distinct cname from customer c, orders o where c.cnum = o.cnum AND odate like '03-OCT-16';
+
+56.select snum, sname from salespeople where snum = 
+	(select snum from customer group by snum having count(snum) > 1);
+
+57.
+58.select * from orders where amount > ( select avg(amount) from orders);
+
+59. select odate, sum(amount) from orders a group by odate having sum(amount)
+	 > ( select 2000 + max(amount)  from orders b where a.odate = b.odate)  order by odate;
+
+60.  select cnum,cname from customer where (city,rating) IN 
+		( select city, max(rating) from customer group by city);
+
+
+
+
+
