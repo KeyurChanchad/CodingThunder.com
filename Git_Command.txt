@@ -227,8 +227,7 @@ No error gives and branch develop deleted. (master)
 
 REMOTE 
 Add origin remote (master)
----> git remote add origin https://github.com/KeyurChanchad/Git-Demo.git
-
+---> git remote add origin https://github.com/KeyurChanchad/Git-Demo.git        //Git-Demo is repository
 Push master branch to remote origin (master)
 ---> git push -u origin master
 
