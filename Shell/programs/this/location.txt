@@ -1,0 +1,6 @@
+this is my second file 
+This is first file 
+This is first file 
+now this is new line of first.txt
+This is first file 
+now this is new line of first.txt

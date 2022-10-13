@@ -1,0 +1,4 @@
+1 | abc | g.m | sales | 6700
+12 | pqr | clear | account | 1000
+32 | xyz | d.g.m | sales | 4953
+4 | abc | director | personal | 25000
