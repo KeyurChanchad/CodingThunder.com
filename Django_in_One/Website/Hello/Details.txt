@@ -1,0 +1,172 @@
+django documentation
+
+{% comment %} To know the varsion of django {% endcomment %}
+python -m django --version
+
+
+{% comment %} To start the project  {% endcomment %}
+django-admin startproject Hello
+
+
+{% comment %} To run the server {% endcomment %}
+python manage.py runserver
+
+{% comment %} To change the port of sertver {% endcomment %}
+python manage.py runserver 8080
+
+{% comment %} To listen all available IP  {% endcomment %}
+python manage.py runserver 0:8000
+
+{% comment %} To start the app  {% endcomment %}
+python manage.py startapp home
+
+{% comment %} Open the file home/views.py and put the following Python code in it: {% endcomment %}
+from django.shortcuts import render
+from django.http import HttpResponse
+# Create your views here.
+def index(request):
+    return HttpResponse("Keyur bhai ho gay run ./index url run")
+
+def servieces(request):
+    return HttpResponse("/servieces is run")
+
+def about(request):
+    return HttpResponse("/about is run")
+
+def contact(request):
+    return HttpResponse("/Contact is run")
+
+{% comment %} create a file called urls.py. in app or home directory {% endcomment %}
+
+
+{% comment %} In the home/urls.py file include the following code: {% endcomment %}
+from  home import views    
+# from . import views
+from django.urls import path
+
+urlpatterns = [
+    path('', views.index, name='index'),  
+] 
+
+{% comment %} In project directory Hello urls.py. The include() function allows referencing other URLconfs.  {% endcomment %}
+from  home import views    
+# from . import views
+from django.urls import path
+
+urlpatterns = [
+    path('', views.index, name='index'),  
+    path('about', views.about, name='aboout'),  
+    path('services', views.servieces, name='services'),  
+    path('contact', views.contact, name='contact'),  
+] 
+
+
+ verify its working python manage.py runserver
+
+Now we create one Static folder and template folder. static for public file and template for all template file html
+
+
+ {% comment %} Go to setting.py at last. click on link appear at above selectcode  {% endcomment %}
+ STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    '/var/www/static/',
+] 
+
+{% comment %} paste at setting.py  STATIC_URL as below {% endcomment %}
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+   os.path.join( BASE_DIR , "static")
+]
+
+in template[] DIRS[]
+    DIRS[os.path.join( BASE_DIR , "template")]
+template folder create index.html and all html file 
+
+in django variable created like {{ var1 }}
+
+{% comment %} In home/views.py  contact is variable pass as below{% endcomment %}
+def index(request):
+    contact={
+        'var1':'I am variable of django',
+        'Author': 'Keyur Chanchad'
+    }
+    return render(request, 'index.html', contact)
+
+{% comment %} getBootstrap.com is framework site {% endcomment %}
+
+{% comment %} If you want to do navbar and footer same in all pages/site than do  {% endcomment %}
+{% extends 'base file name with extension' %}
+{% comment %} it extends this base file only one extends is there {% endcomment %}
+
+{% block  title%} {% endblock  title%}
+{% comment %} inside is block whatever you puting it goes in base file and find this {% block title  %}{% endblock title  %} inside this put that text {% endcomment %}
+
+{% comment %} Django comes with default Authentication system {% endcomment %}
+
+127.0.0.1:8000/admin 
+{% comment %} username and password not define in django Authentication system {% endcomment %}
+
+{% comment %} if you try to login without username and password that throw error {% endcomment %}
+python manage.py makemigrations
+{% comment %}1. in database or schema of database change then print change if not change then No changes detected {% endcomment %}
+
+python manage.py migrate
+{% comment %} that create some table  {% endcomment %}
+
+python manage.py createsuperuser
+{% comment %} to create super user  {% endcomment %}
+
+{% comment %} fill the form the send data in /Contact side  {% endcomment %}
+<form action='/contact' method='POST'>
+
+{% comment %} First we create batabase , model {% endcomment %}
+
+{% comment %} In home(app)/ model.py create table, model {% endcomment %}
+class Contact(models.Model):
+    name = models.CharField(max_length=50)
+    address = models.CharField(max_length=120)
+    city = models.CharField(max_length=20)
+    email = models.CharField(max_length=123)
+    desc = models.TextField()
+    data = models.DateField()
+
+
+python manage.py makemigrations
+{% comment %} No changes detected but we create model if we detected than do two things {% endcomment %}
+{% comment %} 1. Register your model  Goes home(app) / admin Register model  {% endcomment %}
+from home.models import Contact
+admin.site.register(Contact)
+
+{% comment %} 2.Register your app  Goes to home(app)/ apps.py copy class name HomeConfig that paste in project setting.py in INSTALLED_APPS write  {% endcomment %}
+'home.apps.HomeConfig',
+
+python manage.py makemigrations
+{% comment %} After that all run above command that display that  {% endcomment %}
+Migrations for 'home':
+  home\migrations\0001_initial.py
+    - Create model Contact
+
+python manage.py migrate
+{% comment %} This command create table in database {% endcomment %}
+
+
+if error is generating after submiting data 
+{% comment %} Forbidden (403)
+CSRF verification failed. Request aborted.
+Reason given for failure:
+    CSRF token missing or incorrect {% endcomment %}
+
+{% comment %} {% csrf_token %} that put in contact form   {% endcomment %}
+<form active='/contact' method='POST'>{% csrf_token %}
+
+You have to create logic to hendel POST request that request goes in /contact then project(Hello) urls.py. to app(home) urls.py. to app(home) views.py  to def contact
+in there if request is POST then hendel esle it render response
+
+
+{% comment %} change the name of contact.object(1), contact.object(2) to name of name filled  write below fun in class or model contact {% endcomment %}
+def __str__(self):
+        return self.name
+
+
+

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %} World's Best Tour and Travel {% endblock title %}
+
+{% block alert %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert{{ message.tags }} alert-dismissible fade show" role="alert">
+          <strong>{{ message }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% endblock alert %}
+
+{% block body %}
+<div class="container mt-5">
+
+  <form active='/contact' method='POST'>
+  {% csrf_token %}
+    <div class="col mb-3">Name
+      <input type="text" class="form-control" placeholder="First name" aria-label="Enter name" name='name'>
+    </div>
+
+    <div class="col-12">
+      <label for="inputAddress" class="form-label">Enter full Address</label>
+      <input type="text" class="form-control" id="inputAddress" placeholder="Address" name='address'>
+    </div>
+
+    <div class="col-md-6">
+      <label for="inputCity" class="form-label">City</label>
+      <input type="text" class="form-control" id="inputCity" placeholder="Enter city" name="city">
+    </div>
+    <div class="col-md-6">
+      <label for="inputEmail4" class="form-label">Email</label>
+      <input type="email" class="form-control" id="inputEmail4" placeholder="Enter Email" name="email">
+    </div>
+
+    <div class="form-floating mt-3">
+      <label for="floatingTextarea2">Feedback</label>
+      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"
+        placeholder="Enter your oppinion" name="desc"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3 text-center">Submit</button>
+  </form>
+</div>
+{% endblock body %}
