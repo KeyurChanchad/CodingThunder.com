@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <script>
+        function updateClock() {
+            // setInterval(() => {
+            //     let alarm = document.getElementById('alarm');
+            //     let date = new Date();
+            //     // console.log(date);
+            //     let time = date.toLocaleTimeString();
+            //     // console.log(time)
+            //     html = "";
+            //     html += `<span>Time :  ${time}</span>`;
+            //     alarm.innerHTML = html;
+            // }, 1000);
+
+
+            // Get the current date
+            let currentTime = new Date();
+
+            // Extract hour, minute and seconds from the date
+            let currentHour = currentTime.getHours();
+            let currentMinutes = currentTime.getMinutes();
+            let currentSeconds = currentTime.getSeconds();
+
+            // Pad 0 if minute or second is less than 10 (single digit)
+            currentMinutes = (currentMinutes < 10 ? "0" : "") + currentMinutes;
+            currentSeconds = (currentSeconds < 10 ? "0" : "") + currentSeconds;
+
+            // Convert railway clock to AM/PM clock
+            currentHour = (currentHour > 12) ? currentHour - 12 : currentHour;
+            currentHour = (currentHour == 0) ? 12 : currentHour;
+
+            // Choose AM/PM as per the time of the day
+            let timeOfDay = (currentHour < 12) ? "AM" : "PM";
+
+            // Prepare the time string from hours, minutes and seconds
+            let currentTimeStr = currentHour + ":" + currentMinutes
+                + ":" + currentSeconds + " " + timeOfDay;
+
+            // Insert the time string inside the DOM
+            document.getElementById("clock").innerHTML = currentTimeStr;
+
+
+        }
+
+    </script>
+</head>
+
+<body onload="updateClock(); setInterval('updateClock()', 1000)">
+    <div id="alarm">
+        <span>time: </span>
+    </div>
+    <script src="js/tut61.js"></script>
+</body>
+
+</html>
